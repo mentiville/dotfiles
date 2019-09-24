@@ -1,0 +1,3 @@
+* my dotfiles
+
+Currently only for a sort-of working environment for /emacs/. We'll see what makes it here.
