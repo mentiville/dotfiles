@@ -1,3 +1,11 @@
 * my dotfiles
 
 Currently only for a sort-of working environment for /emacs/. We'll see what makes it here.
+
+** To use
+/Clone/ and then either symlink manually or use 
+
+#+BEGIN_SRC bash
+  cd dotfiles
+  stow emacs
+#+END_SRC
