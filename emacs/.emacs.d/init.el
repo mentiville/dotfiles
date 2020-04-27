@@ -52,10 +52,10 @@
 (set-keyboard-coding-system 'utf-8)
 
 (require 'package)
-(let* ((proto "https")) 
- (add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t)
+(let* ((proto "https"))
  (add-to-list 'package-archives (cons "melpa-stable" (concat proto "://stable.melpa.org/packages/")) t)
- (add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
+ (add-to-list 'package-archives (cons "melpa"        (concat proto "://melpa.org/packages/")) t)
+ (add-to-list 'package-archives (cons "org"          (concat proto "://orgmode.org/elpa/")) t)
  (package-initialize))
 
 (eval-when-compile
@@ -108,6 +108,12 @@
   (require 'expand-region)
   (global-set-key (kbd "C-'") 'er/expand-region))
 
+(use-package which-key
+  :ensure t
+  :config
+  (require 'which-key)
+  (which-key-mode))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; LISP
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -140,6 +146,9 @@
   :ensure t
   :config
   (add-hook 'emacs-lisp-mode-hook #'rainbow-delimiters-mode))
+
+(show-paren-mode 1)
+(setq show-paren-style 'parenthesis)
 
 (use-package highlight-parentheses
   :ensure t
@@ -218,7 +227,7 @@
     ("1436d643b98844555d56c59c74004eb158dc85fc55d2e7205f8d9b8c860e177f" default)))
  '(package-selected-packages
    (quote
-    (expand-region wrap-region ox-reveal htmlize yaml-mode find-file-in-project magit toml-mode cargo eglot flycheck flycheck-rust rust-mode tango-theme moe-theme monokai-theme monokai spacemacs-theme spacemacs-dark gruvbox-theme highlight-parentheses cider clojure-mode rainbow-delimiters company use-package paredit)))
+    (haskell-mode indium which-key expand-region wrap-region ox-reveal htmlize yaml-mode find-file-in-project magit toml-mode cargo eglot flycheck flycheck-rust rust-mode tango-theme moe-theme monokai-theme monokai spacemacs-theme spacemacs-dark gruvbox-theme highlight-parentheses cider clojure-mode rainbow-delimiters company use-package paredit)))
  '(show-paren-mode t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -227,3 +236,25 @@
  ;; If there is more than one, they won't work right.
  )
 (put 'dired-find-alternate-file 'disabled nil)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; haskell
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(use-package haskell-mode
+  :ensure t
+  :mode (("\\.hs\\'"    . haskell-mode)
+         ("\\.cabal\\'" . haskell-cabal-mode)
+         ("\\.hcr\\'"   . haskell-core-mode))
+  :interpreter ("haskell" . haskell-mode)
+
+  :init
+  (add-hook 'haskell-mode-hook 'structured-haskell-mode)
+  (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
+
+  :config
+  (require 'haskell)
+  (require 'haskell-mode)
+  (require 'haskell-interactive-mode)
+  (require 'autoinsert)
+  )
