@@ -2,4 +2,5 @@ auto-save-list/
 elpa/
 /session.*
 transient/
+.cache/
 *~
