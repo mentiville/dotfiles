@@ -85,12 +85,16 @@
 (use-package yaml-mode
   :ensure t)
 
+(use-package winum
+  :ensure t)
+
 (use-package treemacs
   :ensure t
   :defer t
   :init
   (with-eval-after-load 'winum
-    (define-key winum-keymap (kbd "M-0") #'treemacs-select-window)))
+    (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
+)
 
 (use-package treemacs-icons-dired
   :after treemacs dired
@@ -242,7 +246,7 @@
     ("1436d643b98844555d56c59c74004eb158dc85fc55d2e7205f8d9b8c860e177f" default)))
  '(package-selected-packages
    (quote
-    (treemacs-magit treemacs-icons-dired treemacs haskell-mode indium which-key expand-region wrap-region ox-reveal htmlize yaml-mode find-file-in-project magit toml-mode cargo eglot flycheck flycheck-rust rust-mode tango-theme moe-theme monokai-theme monokai spacemacs-theme spacemacs-dark gruvbox-theme highlight-parentheses cider clojure-mode rainbow-delimiters company use-package paredit)))
+    (winum winum-mode treemacs-magit treemacs-icons-dired treemacs haskell-mode indium which-key expand-region wrap-region ox-reveal htmlize yaml-mode find-file-in-project magit toml-mode cargo eglot flycheck flycheck-rust rust-mode tango-theme moe-theme monokai-theme monokai spacemacs-theme spacemacs-dark gruvbox-theme highlight-parentheses cider clojure-mode rainbow-delimiters company use-package paredit)))
  '(safe-local-variable-values
    (quote
     ((eval progn
