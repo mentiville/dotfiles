@@ -11,6 +11,7 @@
 (setq make-backup-files nil) ; stop creating backup~ files
 (setq auto-save-default nil) ; stop creating #autosave# files
 (setq create-lockfiles nil)
+(setq-default indent-tabs-mode nil)
 
 (setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
 (setq exec-path (append exec-path '("/usr/local/bin")))
@@ -307,14 +308,14 @@
  '(custom-safe-themes
    '("1436d643b98844555d56c59c74004eb158dc85fc55d2e7205f8d9b8c860e177f" default))
  '(package-selected-packages
-   '(tide winum winum-mode treemacs-magit treemacs-icons-dired treemacs haskell-mode indium which-key expand-region wrap-region ox-reveal htmlize yaml-mode find-file-in-project magit toml-mode cargo eglot flycheck flycheck-rust rust-mode tango-theme moe-theme monokai-theme monokai spacemacs-theme spacemacs-dark gruvbox-theme highlight-parentheses cider clojure-mode rainbow-delimiters company use-package paredit))
+   '(epresent tide winum winum-mode treemacs-magit treemacs-icons-dired treemacs haskell-mode indium which-key expand-region wrap-region ox-reveal htmlize yaml-mode find-file-in-project magit toml-mode cargo eglot flycheck flycheck-rust rust-mode tango-theme moe-theme monokai-theme monokai spacemacs-theme spacemacs-dark gruvbox-theme highlight-parentheses cider clojure-mode rainbow-delimiters company use-package paredit))
  '(safe-local-variable-values
    '((eval progn
-	   (require 'find-file-in-project)
-	   (setq ffip-prune-patterns
-		 `("*/.tox" ,@ffip-prune-patterns))
-	   (setq ffip-prune-patterns
-		 `(delete "*/bin" ,@ffip-prune-patterns)))))
+           (require 'find-file-in-project)
+           (setq ffip-prune-patterns
+                 `("*/.tox" ,@ffip-prune-patterns))
+           (setq ffip-prune-patterns
+                 `(delete "*/bin" ,@ffip-prune-patterns)))))
  '(show-paren-mode t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -355,6 +356,35 @@
   :after (typescript-mode company flycheck)
   :hook ((typescript-mode . tide-setup)
          (typescript-mode . tide-hl-identifier-mode)
-         (before-save . tide-format-before-save)))
+         (before-save . tide-format-before-save))
+  :config
+  (setq typescript-indent-level 2)
+  (setq js-indent-level 2)
+)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; org
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(org-babel-do-load-languages 'org-babel-load-languages
+    '(
+      (shell . t)
+      (emacs-lisp . t)
+    )
+)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; grepping
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(progn
+  (require 'grep)
+  (add-to-list 'grep-find-ignored-directories
+               "cdk.out")
+  (add-to-list 'grep-find-ignored-directories
+               "node_modules"))
+
+
 
 ;;; init.el ends here
