@@ -4,3 +4,4 @@ elpa/
 transient/
 .cache/
 *~
+custom.el

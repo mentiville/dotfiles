@@ -52,6 +52,13 @@
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
 
+;;
+;; No customisations in init.el please
+;;
+(setq custom-file "~/.emacs.d/custom.el")
+(when (file-exists-p custom-file)
+  (load custom-file))
+
 (require 'package)
 (let* ((proto "https"))
  (add-to-list 'package-archives (cons "melpa-stable" (concat proto "://stable.melpa.org/packages/")) t)
@@ -299,30 +306,6 @@
 (use-package ox-reveal
   :ensure t)
 
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   '("1436d643b98844555d56c59c74004eb158dc85fc55d2e7205f8d9b8c860e177f" default))
- '(package-selected-packages
-   '(epresent tide winum winum-mode treemacs-magit treemacs-icons-dired treemacs haskell-mode indium which-key expand-region wrap-region ox-reveal htmlize yaml-mode find-file-in-project magit toml-mode cargo eglot flycheck flycheck-rust rust-mode tango-theme moe-theme monokai-theme monokai spacemacs-theme spacemacs-dark gruvbox-theme highlight-parentheses cider clojure-mode rainbow-delimiters company use-package paredit))
- '(safe-local-variable-values
-   '((eval progn
-           (require 'find-file-in-project)
-           (setq ffip-prune-patterns
-                 `("*/.tox" ,@ffip-prune-patterns))
-           (setq ffip-prune-patterns
-                 `(delete "*/bin" ,@ffip-prune-patterns)))))
- '(show-paren-mode t))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
 (put 'dired-find-alternate-file 'disabled nil)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
