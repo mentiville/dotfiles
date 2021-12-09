@@ -399,6 +399,12 @@
   (add-to-list 'grep-find-ignored-directories
                "node_modules"))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Misc
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; Don't ask me - allows typing "space" in minibuffer when emacs
+;; expects a completion
+(define-key minibuffer-local-completion-map (kbd "SPC") 'self-insert-command)
 
 ;;; init.el ends here
