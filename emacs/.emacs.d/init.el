@@ -96,6 +96,13 @@
 (use-package winum
   :ensure t)
 
+(use-package visual-fill-column
+  :ensure t
+  :hook (visual-line-mode . visual-fill-column-mode))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Treemacs
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package treemacs
   :ensure t
   :defer t
@@ -179,11 +186,15 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; note taking
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(require 'org)
-(setq org-directory (file-truename "~/Documents/Notes/org"))
-(setq org-default-notes-file (concat org-directory "/notes.org"))
+(use-package org
+  :ensure t
+  :config
+  (require 'org)
+  (setq org-directory (file-truename "~/Documents/Notes/org"))
+  (setq org-default-notes-file (concat org-directory "/notes.org")))
 
 (setq markdown-command "pandoc")
+
 
 (use-package org-journal
   :ensure t
@@ -402,6 +413,25 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Misc
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun nvm-which ()
+  (let ((output (shell-command-to-string "source ~/.nvm/nvm.sh; nvm which")))
+    (cadr (split-string output "[\n]+" t))))
+
+(use-package nodejs-repl
+  :ensure t
+  :config
+  (add-hook 'js-mode-hook
+          (lambda ()
+            (define-key js-mode-map (kbd "C-x C-e") 'nodejs-repl-send-last-expression)
+            (define-key js-mode-map (kbd "C-c C-j") 'nodejs-repl-send-line)
+            (define-key js-mode-map (kbd "C-c C-r") 'nodejs-repl-send-region)
+            (define-key js-mode-map (kbd "C-c C-c") 'nodejs-repl-send-buffer)
+            (define-key js-mode-map (kbd "C-c C-l") 'nodejs-repl-load-file)
+            (define-key js-mode-map (kbd "C-c C-z") 'nodejs-repl-switch-to-repl)))
+  (setq nodejs-repl-command #'nvm-which)
+  )
+
+
 
 ;; Don't ask me - allows typing "space" in minibuffer when emacs
 ;; expects a completion
