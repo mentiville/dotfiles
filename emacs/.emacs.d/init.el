@@ -1,5 +1,9 @@
 (setq inhibit-startup-screen t)
 
+;; Spare my old eyes
+(set-face-attribute 'default nil
+                    :height 120)
+
 ;; the blinking cursor is nothing, but an annoyance
 (blink-cursor-mode -1)
 (set-default 'truncate-lines t)
