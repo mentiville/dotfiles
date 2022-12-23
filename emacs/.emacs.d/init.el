@@ -14,6 +14,13 @@
 (setq-default indent-tabs-mode nil)
 (setq warning-minimum-level :error)
 
+(progn
+  ;; Unset Ctrl-Z to avoid annoying hang because of clumsy fingers
+  (dolist (key (mapcar 'kbd '("C-z"
+                              "C-x C-z")))
+    (global-unset-key key)))
+
+
 
 (setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
 (setq exec-path (append exec-path '("/usr/local/bin")))
