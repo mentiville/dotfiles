@@ -37,5 +37,6 @@ export PS1='[\u@\h \W$(declare -F __git_ps1 &>/dev/null && __git_ps1 " (%s)")]\n
 
 export EDITOR=vim
 
-alias aws-vault='aws-vault --prompt=ykman --backend=file'
+#alias aws-vault='aws-vault --prompt=ykman --backend=file'
+alias aws-vault='aws-vault --prompt=ykman'
 
