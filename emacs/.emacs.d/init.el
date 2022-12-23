@@ -12,6 +12,8 @@
 (setq auto-save-default nil) ; stop creating #autosave# files
 (setq create-lockfiles nil)
 (setq-default indent-tabs-mode nil)
+(setq warning-minimum-level :error)
+
 
 (setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
 (setq exec-path (append exec-path '("/usr/local/bin")))
