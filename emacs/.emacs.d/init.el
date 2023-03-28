@@ -450,10 +450,13 @@
   (setq nodejs-repl-command #'nvm-which)
   )
 
-
-
 ;; Don't ask me - allows typing "space" in minibuffer when emacs
 ;; expects a completion
 (define-key minibuffer-local-completion-map (kbd "SPC") 'self-insert-command)
+
+;; Elixir
+
+(use-package alchemist
+  :ensure t)
 
 ;;; init.el ends here
