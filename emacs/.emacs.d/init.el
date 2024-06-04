@@ -2,7 +2,7 @@
 
 ;; Spare my old eyes
 (set-face-attribute 'default nil
-                    :height 120)
+                    :height 140)
 
 ;; the blinking cursor is nothing, but an annoyance
 (blink-cursor-mode -1)
@@ -48,8 +48,8 @@
       (setenv "PATH" (concat (getenv "PATH") ":" cargo-bin-dir))
       (setq exec-path (append exec-path (list cargo-bin-dir)))))
 
+;; Not sure this is needed anymore with the exec-path-from-shell below
 (defvar nvm-bin (getenv "NVM_BIN"))
-
 (if (and nvm-bin (file-exists-p nvm-bin))
     (progn
       (setenv "PATH" (concat (getenv "PATH") ":" nvm-bin))
@@ -64,6 +64,16 @@
 (set-default-coding-systems 'utf-8)
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
+
+(when (eq system-type 'darwin)
+  ;; For Mac computers
+  (setq
+   ;; Don't use Mac option key as Meta
+   mac-option-modifier nil
+   ;; Use Command key as meta
+   mac-command-modifier 'meta
+   ;; Use clipboard when yanking (I guess?)
+   x-select-enable-clipboard t))
 
 ;;
 ;; No customisations in init.el please
@@ -82,6 +92,12 @@
 (eval-when-compile
   (unless (package-installed-p 'use-package)
     (package-install 'use-package)))
+
+(use-package exec-path-from-shell
+  :ensure t
+  :config
+  (when (memq window-system '(mac ns x))
+    (exec-path-from-shell-initialize)))
 
 (use-package gruvbox-theme
   :ensure t
@@ -219,7 +235,7 @@
   :init
   (setq org-roam-v2-ack t)
   :custom
-  (org-roam-directory (file-truename "~/Documents/Notes/Roam"))
+  (org-roam-directory (file-truename "~/Documents/Roam"))
   (org-roam-dailies-directory "daily/")
   (org-roam-dailies-capture-templates
         '(("d" "default" entry
